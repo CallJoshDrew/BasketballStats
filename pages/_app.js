@@ -19,6 +19,8 @@ export default function MyApp(props) {
 	return (
 		<CacheProvider value={emotionCache}>
 			<Head>
+			<title>Basketball Stats</title>
+        <link rel="icon" href="/Favicon/favicon.ico" />
 				<meta name="viewport"
 					content="initial-scale=1, width=device-width" />
 			</Head>
