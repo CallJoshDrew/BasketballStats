@@ -5,17 +5,23 @@ import {
   Grid,
   TextField,
   Typography,
+  Box,
+  CardMedia,
 } from "@mui/material";
 import Container from "@mui/material/Container";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import Image from "../public/curry.jpg"
 
-
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 
 export default function Home() {
-  const [player1, setPlayer1] = useState("Player1");
+  // Player 1
   const [score1, setScore1] = useState(0);
   const [assist1, setAssist1] = useState(0);
   const [threepoints1, setThreepoints1] = useState(0);
@@ -23,14 +29,10 @@ export default function Home() {
   const [blkShot1, setBlkShot1] = useState(0);
   const [rebound1, setRebound1] = useState(0);
   const [steal1, setSteal1] = useState(0);
-  
+
   // useEffect(() => {
   //   localStorage.setItem("player1", JSON.stringify(player1))
   // }, [player1]);
-
-  useEffect(() => {
-      localStorage.setItem("score", JSON.stringify(score1))
-    }, [score1]);
 
   // useEffect(()=>{
   //   const data = JSON.parse(localStorage.getItem('score'));
@@ -39,36 +41,59 @@ export default function Home() {
   // },[])
 
   useEffect(() => {
-    localStorage.setItem("assist", JSON.stringify(assist1))
+    localStorage.setItem("score", JSON.stringify(score1));
+  }, [score1]);
+
+  useEffect(() => {
+    localStorage.setItem("assist", JSON.stringify(assist1));
   }, [assist1]);
 
   useEffect(() => {
-    localStorage.setItem("3 points", JSON.stringify(threepoints1))
+    localStorage.setItem("3 points", JSON.stringify(threepoints1));
   }, [threepoints1]);
 
   useEffect(() => {
-    localStorage.setItem("Miss Shot", JSON.stringify(missShot1))
+    localStorage.setItem("Miss Shot", JSON.stringify(missShot1));
   }, [missShot1]);
   useEffect(() => {
-    localStorage.setItem("Block Shot", JSON.stringify(blkShot1))
+    localStorage.setItem("Block Shot", JSON.stringify(blkShot1));
   }, [blkShot1]);
   useEffect(() => {
-  localStorage.setItem("Rebound Shot", JSON.stringify(rebound1))
+    localStorage.setItem("Rebound Shot", JSON.stringify(rebound1));
   }, [rebound1]);
   useEffect(() => {
-    localStorage.setItem("Steal", JSON.stringify(steal1))
-    }, [steal1]);
-  
+    localStorage.setItem("Steal", JSON.stringify(steal1));
+  }, [steal1]);
+
   // const handleChange = (e) => {
   //   e.preventDefault();
   //   console.log(playerOne);
   // };
 
+  // Player 2
+  const [score2, setScore2] = useState(0);
+  const [assist2, setAssist2] = useState(0);
+  const [threepoints2, setThreepoints2] = useState(0);
+  const [missShot2, setMissShot2] = useState(0);
+  const [blkShot2, setBlkShot2] = useState(0);
+  const [rebound2, setRebound2] = useState(0);
+  const [steal2, setSteal2] = useState(0);
 
-  
+  // Player 3
+  const [score3, setScore3] = useState(0);
+  const [assist3, setAssist3] = useState(0);
+  const [threepoints3, setThreepoints3] = useState(0);
+  const [missShot3, setMissShot3] = useState(0);
+  const [blkShot3, setBlkShot3] = useState(0);
+  const [rebound3, setRebound3] = useState(0);
+  const [steal3, setSteal3] = useState(0);
 
+  const [value, setValue] = React.useState("1");
 
- 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -76,220 +101,773 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container maxWidth="md">
-        <Grid container padding="10% 2% 0" spacing={1} alignItems="center">
-          <Grid item xs={12}>
-            <TextField
-              label="Player1"
-              variant="outlined"
-              placeholder={player1}
-              onInput={(e) => setPlayer1(e.target.value)}
-              
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography varient="h5" paddingLeft="10px" marginTop="20px">
-              Offensive Stats
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label={`Scores: ${score1}`}
-              variant="outlined"
-              type="number"
-             
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <ButtonGroup>
-              <Button
-                aria-label="reduce"
-                onClick={() => {
-                  setScore1(Math.max(score1 - 1, 0));
-                }}
+      <Container sx={{ padding: "0", margin: "20px 0" }}>
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
               >
-                <RemoveIcon fontSize="small" />
-              </Button>
-              <Button
-                aria-label="increase"
-                onClick={() => {
-                  setScore1(score1 + 1);
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </Button>
-            </ButtonGroup>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label={`Assists: ${assist1}`}
-              variant="outlined"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <ButtonGroup>
-              <Button
-                aria-label="reduce"
-                onClick={() => {
-                  setAssist1(Math.max(assist1 - 1, 0));
-                }}
-              >
-                <RemoveIcon fontSize="small" />
-              </Button>
-              <Button
-                aria-label="increase"
-                onClick={() => {
-                  setAssist1(assist1 + 1);
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </Button>
-            </ButtonGroup>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label={`3 Points: ${threepoints1}`}
-              variant="outlined"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <ButtonGroup>
-              <Button
-                aria-label="reduce"
-                onClick={() => {
-                  setThreepoints1(Math.max(threepoints1 - 1, 0));
-                }}
-              >
-                <RemoveIcon fontSize="small" />
-              </Button>
-              <Button
-                aria-label="increase"
-                onClick={() => {
-                  setThreepoints1(threepoints1 + 1);
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </Button>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
-        <Grid container padding="10% 2%" spacing={1} alignItems="center">
-          <Grid item xs={12}>
-            <Typography varient="h5" paddingLeft="10px">
-              Defensive Stats
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label={`Miss Shot: ${missShot1}`}
-              variant="outlined"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <ButtonGroup>
-              <Button
-                aria-label="reduce"
-                onClick={() => {
-                  setMissShot1(Math.max(missShot1 - 1, 0));
-                }}
-              >
-                <RemoveIcon fontSize="small" />
-              </Button>
-              <Button
-                aria-label="increase"
-                onClick={() => {
-                  setMissShot1(missShot1 + 1);
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </Button>
-            </ButtonGroup>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label={`Block Shot: ${blkShot1}`}
-              variant="outlined"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <ButtonGroup>
-              <Button
-                aria-label="reduce"
-                onClick={() => {
-                  setBlkShot1(Math.max(blkShot1 - 1, 0));
-                }}
-              >
-                <RemoveIcon fontSize="small" />
-              </Button>
-              <Button
-                aria-label="increase"
-                onClick={() => {
-                  setBlkShot1(blkShot1 + 1);
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </Button>
-            </ButtonGroup>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label={`Rebound: ${rebound1}`}
-              variant="outlined"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <ButtonGroup>
-              <Button
-                aria-label="reduce"
-                onClick={() => {
-                  setRebound1(Math.max(rebound1 - 1, 0));
-                }}
-              >
-                <RemoveIcon fontSize="small" />
-              </Button>
-              <Button
-                aria-label="increase"
-                onClick={() => {
-                  setRebound1(rebound1 + 1);
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </Button>
-            </ButtonGroup>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label={`Steal: ${steal1}`}
-              variant="outlined"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <ButtonGroup>
-              <Button
-                aria-label="reduce"
-                onClick={() => {
-                  setSteal1(Math.max(steal1 - 1, 0));
-                }}
-              >
-                <RemoveIcon fontSize="small" />
-              </Button>
-              <Button
-                aria-label="increase"
-                onClick={() => {
-                  setSteal1(steal1 + 1);
-                }}
-              >
-                <AddIcon fontSize="small" />
-              </Button>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
+                <Tab label="Stephy" value="1" />
+                <Tab label="Cps" value="2" />
+                <Tab label="WinYan" value="3" />
+              </TabList>
+            </Box>
+            <TabPanel sx={{ padding: "15px 0", margin: "0" }} value="1">
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xs={12}>
+                  <Typography varient="h5" paddingLeft="10px" marginTop="10px">
+                    Offensive Stats
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Scores: ${score1}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setScore1(Math.max(score1 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setScore1(score1 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Assists: ${assist1}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setAssist1(Math.max(assist1 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setAssist1(assist1 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`3 Points: ${threepoints1}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setThreepoints1(Math.max(threepoints1 - 1, 0));
+                        setScore1(Math.max(score1 - 3, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setThreepoints1(threepoints1 + 1);
+                        setScore1(Math.max(score1 + 3, 0));
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+              <Grid container paddingTop="30px" spacing={1} alignItems="center">
+                <Grid item xs={12}>
+                  <Typography varient="h5" paddingLeft="10px">
+                    Defensive Stats
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Miss Shot: ${missShot1}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setMissShot1(Math.max(missShot1 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setMissShot1(missShot1 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Block Shot: ${blkShot1}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setBlkShot1(Math.max(blkShot1 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setBlkShot1(blkShot1 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Rebound: ${rebound1}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setRebound1(Math.max(rebound1 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setRebound1(rebound1 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Steal: ${steal1}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setSteal1(Math.max(steal1 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setSteal1(steal1 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+            </TabPanel>
+            <TabPanel sx={{ padding: "15px 0", margin: "0" }} value="2">
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xs={12}>
+                  <Typography varient="h5" paddingLeft="10px" marginTop="10px">
+                    Offensive Stats
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Scores: ${score2}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setScore2(Math.max(score2 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setScore2(score2 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Assists: ${assist2}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setAssist2(Math.max(assist2 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setAssist2(assist2 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`3 Points: ${threepoints2}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setThreepoints2(Math.max(threepoints2 - 1, 0));
+                        setScore2(Math.max(score2 - 3, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setThreepoints2(threepoints2 + 1);
+                        setScore2(Math.max(score2 + 3, 0));
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+              <Grid container paddingTop="30px" spacing={1} alignItems="center">
+                <Grid item xs={12}>
+                  <Typography varient="h5" paddingLeft="10px">
+                    Defensive Stats
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Miss Shot: ${missShot2}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setMissShot2(Math.max(missShot2 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setMissShot2(missShot2 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Block Shot: ${blkShot2}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setBlkShot2(Math.max(blkShot2 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setBlkShot2(blkShot2 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Rebound: ${rebound2}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setRebound2(Math.max(rebound2 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setRebound2(rebound2 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Steal: ${steal2}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setSteal2(Math.max(steal2 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setSteal2(steal2 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+            </TabPanel>
+            <TabPanel sx={{ padding: "15px 0", margin: "0" }} value="3">
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xs={12}>
+                  <Typography varient="h5" paddingLeft="10px" marginTop="10px">
+                    Offensive Stats
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Scores: ${score3}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setScore3(Math.max(score3 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setScore3(score3 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Assists: ${assist3}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setAssist3(Math.max(assist3 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setAssist3(assist3 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`3 Points: ${threepoints3}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setThreepoints3(Math.max(threepoints3 - 1, 0));
+                        setScore3(Math.max(score3 - 3, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setThreepoints3(threepoints3 + 1);
+                        setScore3(Math.max(score3 + 3, 0));
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+              <Grid container paddingTop="30px" spacing={1} alignItems="center">
+                <Grid item xs={12}>
+                  <Typography varient="h5" paddingLeft="10px">
+                    Defensive Stats
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Miss Shot: ${missShot3}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setMissShot3(Math.max(missShot3 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setMissShot3(missShot3 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Block Shot: ${blkShot3}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setBlkShot3(Math.max(blkShot3 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setBlkShot3(blkShot3 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Rebound: ${rebound3}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setRebound3(Math.max(rebound3 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setRebound3(rebound3 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={8}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    aria-label="Scores"
+                    fullWidth
+                  >
+                    {`Steal: ${steal3}`}
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <ButtonGroup>
+                    <Button
+                      color="error"
+                      aria-label="reduce"
+                      onClick={() => {
+                        setSteal3(Math.max(steal3 - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      aria-label="increase"
+                      onClick={() => {
+                        setSteal3(steal3 + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+            </TabPanel>
+          </TabContext>
+          <CardMedia
+          component="img"
+          image={Image.src}
+          alt="Stephen Curry"
+        />
+        </Box>
       </Container>
     </div>
   );
