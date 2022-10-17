@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useId } from "react";
 import {
   Button,
   ButtonGroup,
@@ -24,9 +24,8 @@ export default function Player({ id, name, onRemove }) {
   const [blkShot1, setBlkShot1] = useState(0);
   const [rebound1, setRebound1] = useState(0);
   const [steal1, setSteal1] = useState(0);
-
-
-
+  
+  console.log(typeof id + ' '+ id);
   return (
     <React.Fragment>
       <Grid container spacing={1} alignItems="center" justifyContent="center">
@@ -421,6 +420,7 @@ export default function Player({ id, name, onRemove }) {
           </ButtonGroup>
         </Grid>
       </Grid>
+      {/* <Typography>{name}</Typography> */}
       <Button onClick={() => onRemove(id)} variant="contained" color="error" size='small' sx={{marginTop: '20px'}} fullWidth>
         Remove Player {name}
       </Button>

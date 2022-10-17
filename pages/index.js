@@ -2,56 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, CardMedia, Container, Grid, Tab, TextField, Typography } from "@mui/material";
 import Player from "../components/player";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
+import ClearIcon from '@mui/icons-material/Clear';
+import IconButton from '@mui/material/IconButton';
 import Image from "../public/curry.jpg";
 export default function BasketballState() {
-  // const [count, setCount] = React.useState(0);
-  // const handleIncrement = () => {
-  //   setCount(count + 1);
-  // };
-  // const decreaseCount = () => {
-  //   setCount(count - 1);
-  // };
-  // const formatCount = () => (count === 0 ? "Zero" : count);
-  // const statusColor = () => {
-  //   let x;
-  //   switch (true) {
-  //     case count === 0:
-  //       x = "#FDD017";
-  //       break;
-  //     case count > 0:
-  //       x = "#2e7d32";
-  //       break;
-  //     case count < 0:
-  //       x = "red";
-  //       break;
-  //   }
-  //   return x;
-  // };
 
   const [players, setNewPlayers] = React.useState([]);
-  const [newID, setNewID] = useState("0");
-
+  
   // Finding the length of the Object
   const totalPlayers = Object.keys(players).length;
   const [enterName, setEnterName] = React.useState('');
-
-  useEffect(() => {
-    let x = (totalPlayers + 1).toString();
-    setNewID(x);
-  }, [totalPlayers, newID]);
+  const generateKey = (pre) => {
+    return `Player_${ pre }_${ new Date().getTime() }`;
+  }
   
   const handleAddNew = () => {
-    setNewPlayers([...players, { id: newID, name: enterName }]);
+    setNewPlayers([...players, { id: generateKey(enterName), name: enterName }]);
   };
   const handleRemove = (id) => {
     const playerId = players.filter((player) => player.id !== id);
     setNewPlayers(playerId);
   };
   // tabpanel value
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState('1');
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
   };
 
   return (
@@ -64,10 +39,15 @@ export default function BasketballState() {
         </Grid> */}
         <Grid item xs={8}>
           <TextField
+            
             // error temporary out on hold
             // helperText="Incorrect entry."
+            autoComplete="off"
             onChange={(e) => setEnterName(e.target.value)}
             label="Enter Player's Name"
+            // InputProps={{
+            //   endAdornment: (<IconButton onClick={handleClearClick} sx={{ visibility: value ? 'visible':'hidden'}} size='small'><ClearIcon/></IconButton>)
+            // }}
             focused
             size='small'
             fullWidth
@@ -110,7 +90,31 @@ export default function BasketballState() {
 };
 
 
+// const [count, setCount] = React.useState(0);
+  // const handleIncrement = () => {
+  //   setCount(count + 1);
+  // };
+  // const decreaseCount = () => {
+  //   setCount(count - 1);
+  // };
+  // const formatCount = () => (count === 0 ? "Zero" : count);
+  // const statusColor = () => {
+  //   let x;
+  //   switch (true) {
+  //     case count === 0:
+  //       x = "#FDD017";
+  //       break;
+  //     case count > 0:
+  //       x = "#2e7d32";
+  //       break;
+  //     case count < 0:
+  //       x = "red";
+  //       break;
+  //   }
+  //   return x;
+  // };
 
+  
 // const AddButton = (props) => {
 //   return <button onClick={props.onClick}>{props.text}</button>;
 // };
