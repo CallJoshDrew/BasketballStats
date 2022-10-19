@@ -29,6 +29,59 @@ export default function BasketballState() {
     setValue(newValue);
   };
 
+  // const onIncrease = (id, name, scores) => {
+  //   console.log('Clicked '+ id + ' '+ name + ' with total '+ scores);
+  //   const found = players.find(player => {
+  //     return player.id === id;
+  //   });
+
+  //   // const b = {...found, scores: 100};
+  //   // setNewPlayers([...players, b]);
+  //   // const newArr = [...players];
+  //   // const index = newArr.indexOf(found);
+  //   // newArr[index] = {...found};
+  //   // // newArr[index].scores+1;
+  //   setScores(Math.max(scores + 1, 0));
+  //   // setNewPlayers([...players, newArr[index]]);
+    
+  //   // setNewPlayers([...players, {...found, scores: scores}]);
+  //   console.log('Scores is '+ scores);
+  //   console.log(players);
+  // }
+
+  // const onDecrease = (id) => {
+  //   console.log('Clicked '+ id);
+  //   const found = players.find(player => {
+  //     return player.id === id;
+  //   });
+  //   const newArr = [...players];
+  //   const index = newArr.indexOf(found);
+  //   newArr[index] = {...found};
+  //   newArr[index].scores-1;
+  //   console.log(newArr[index]);
+  // }
+  // const updateScores =(score1, id) => {
+  //   console.log('Score is ' + score1);
+  //   setJpShoot1(Math.max(jpShoot1 + 1, 0));
+  //   console.log(jpShoot1);
+  //   const newArr = {...players};
+  //   console.log(id);
+  //   console.log(newArr[0]);
+    // newArr[id].scores++;
+    // setNewPlayers[newArr];
+    // console.log(players);
+    
+    // console.log(score1);
+    // setNewPlayers(players.map(player => {
+    //   if (player.id === id){
+    //     return {...player, scores: score1}
+    //   } else {
+    //     return player
+    //   }
+    // }))
+  // }
+  // console.log('Player '+enterName+' scores is '+ scores);
+  
   return (
     <Container sx={{ padding: "0", margin: "20px 0" }}>
       <Grid container sx={{ padding: "20px" }} align="center" alignItems="center" spacing={1}>
@@ -69,14 +122,14 @@ export default function BasketballState() {
                 variant="scrollable"
                 scrollButtons="auto"
                 allowScrollButtonsMobile>
-                {players.map(({ id, name }) => (
-                  <Tab label={name} value={id} key={id} />
+                {players.map((player) => (
+                  <Tab label={player.name} value={player.id} key={player.id} />
                 ))}
               </TabList>
             </Box>
-            {players.map(({ id, name }) => (
-              <TabPanel sx={{ padding: "15px 0", margin: "0" }} value={id} key={id}>
-                <Player id={id} name={name} onRemove={handleRemove}/>
+            {players.map((player) => (
+              <TabPanel sx={{ padding: "15px 0", margin: "0" }} value={player.id} key={player.id}>
+                <Player {...player} onRemove={handleRemove} />
               </TabPanel>
             ))}
             

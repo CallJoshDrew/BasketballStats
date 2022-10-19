@@ -25,7 +25,16 @@ export default function Player({ id, name, onRemove }) {
   const [rebound1, setRebound1] = useState(0);
   const [steal1, setSteal1] = useState(0);
   
-  console.log(typeof id + ' '+ id);
+  // useEffect(() => {
+  //   updateScores(score1, id);
+  // }, [score1, id, updateScores])
+        
+  // const handleUpdate = () => {
+  //   updateScores(score1, id);
+  //   console.log(score1);
+  // }
+  // console.log('score1 is '+ score1);
+  // console.log(typeof id + ' '+ id);
   return (
     <React.Fragment>
       <Grid container spacing={1} alignItems="center" justifyContent="center">
@@ -61,7 +70,7 @@ export default function Player({ id, name, onRemove }) {
               aria-label="reduce"
               onClick={() => {
                 setJpShoot1(Math.max(jpShoot1 - 1, 0));
-                setScore1(Math.max(score1 - 2, 0));
+                setScore1(score1 - 2);
               }}
             >
               <RemoveIcon fontSize="small" />
@@ -420,7 +429,33 @@ export default function Player({ id, name, onRemove }) {
           </ButtonGroup>
         </Grid>
       </Grid>
-      {/* <Typography>{name}</Typography> */}
+      {/* <Typography>{name}</Typography>
+      <Button variant="outlined" color="info" aria-label="Scores" >
+        {`Scores: ${scores1}`}
+      </Button>
+      <ButtonGroup>
+        <Button
+          color="info"
+          aria-label="reduce"
+          onClick={() => 
+            onIncrease(id, name, scores,)
+          }
+        >
+          <RemoveIcon fontSize="small" />
+        </Button>
+        <Button
+          variant="outlined"
+          color="info"
+          aria-label="increase"
+          onClick={() => {
+            // setJpShoot1(Math.max(jpShoot1 + 1, 0));
+            // setScore1(score1 + 2);
+            onDecrease(id)
+          }}
+        >
+          <AddIcon fontSize="small" />
+        </Button>
+      </ButtonGroup> */}
       <Button onClick={() => onRemove(id)} variant="contained" color="error" size='small' sx={{marginTop: '20px'}} fullWidth>
         Remove Player {name}
       </Button>
